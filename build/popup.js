@@ -32165,7 +32165,8 @@ document.getElementById("btn-get").addEventListener("click", () => {
         alert("シートのバージョンが異なります。最新のバージョンを使用してください。");
         return;
       }
-      document.getElementById("target-table").innerHTML = content + "は勤怠表ファイルに名前が見つからないため、反映していません。";
+      document.getElementById("target-table").innerHTML = content.cannotFindOnMirteList + "は勤怠表ファイルに名前が見つからないため、反映していません。";
+      document.getElementById("target-table-absence").innerHTML = content.actuallyAbsenceList + "は全て”休み”にしています。";
     });
   });
 });
@@ -32176,7 +32177,7 @@ async function handleFileAsync(e) {
   const workbook = xlsx__WEBPACK_IMPORTED_MODULE_2__.read(data);
 
   //勤怠情報ページの日付に対応したシートを読み込んでいる
-  let targetSheetName = "R" + String(Number(YM.slice(0,4)) - 2018) + "." + String(Number(YM.slice(-2))) + "月";
+  let targetSheetName = "R" + String(Number(YM.slice(0,4)) - 2018) + "." + String(Number(YM.slice(-2))+2) + "月";
 
   const worksheet = workbook.Sheets[targetSheetName];
   document.getElementById("worksheet-name").innerHTML = targetSheetName;
