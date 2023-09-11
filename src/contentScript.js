@@ -27,7 +27,7 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     for (let i = 0; i < StaffsOnMirteList.children.length; i += 2) {
       let noData = true;
 
-      finded: for (let j = 0; j < request.message.length; j++) {
+      for (let j = 0; j < request.message.length; j++) {
         let staffData = StaffsOnMirteList.children[i].children;
         if (request.message[j].name.replace(' ', '') == staffData[0].innerHTML.replace(' ', '')) {
           let excelDaySize = request.message[j].datas.length;
@@ -56,7 +56,6 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
               staffData[k + 2].children[0].options[1].selected = true;
             }
           }
-          break finded;
         }
         else {
           let excelDaySize = request.message[j].datas.length;
@@ -80,8 +79,8 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
             }
             actuallyAbsenceList.push(staffData[0].innerHTML.replace(' ', ''));
           }
-          break finded;
         }
+        break;
       }
 
       if (noData) {
