@@ -28,9 +28,9 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     //request.messageには、popup.jsから送信されたdatalist[]が送られてくる。
     for (let i = 0; i < StaffsOnMirteList.children.length; i += 2) {
       let noData = true;
+      let staffData = StaffsOnMirteList.children[i].children;
 
       for (let j = 0; j < request.message.length; j++) {
-        let staffData = StaffsOnMirteList.children[i].children;
         if (request.message[j].name.replace(' ', '') == staffData[0].innerHTML.replace(' ', '')) {
           excelDaySize = request.message[j].datas.length;
           // データが入っている列のみ抽出して、名前と院名を除く
@@ -58,10 +58,10 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
               staffData[k + 2].children[0].options[1].selected = true;
             }
           }
+          
+          // これ以降人物は一致しない
+          break;
         }
-
-        // これ以降人物は一致しない
-        break;
       }
 
       if (noData) {
