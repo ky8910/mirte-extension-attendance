@@ -52,8 +52,12 @@ document.getElementById("btn-get").addEventListener("click", () => {
         alert("シートのバージョンが異なります。最新のバージョンを使用してください。");
         return;
       }
-      document.getElementById("target-table").innerHTML = content.cannotFindOnMirteList + "は勤怠表ファイルに名前が見つからないため、反映していません。";
-      document.getElementById("target-table-absence").innerHTML = content.actuallyAbsenceList + "は全て”休み”にしています。";
+      if(content.cannotFindOnMirteList.length > 0){
+        document.getElementById("target-table").innerHTML = content.cannotFindOnMirteList + "は勤怠表ファイルに名前が見つからないため、反映していません。";
+      }
+      if(content.actuallyAbsenceList.length > 0){
+        document.getElementById("target-table-absence").innerHTML = content.actuallyAbsenceList + "は全て”休み”にしています。";
+      }
     });
   });
 });

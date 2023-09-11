@@ -34,9 +34,9 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     //request.messageには、popup.jsから送信されたdatalist[]が送られてくる。
     for (let i = 0; i < StaffsOnMirteList.children.length; i += 2) {
       let noData = true;
+      let staffData = StaffsOnMirteList.children[i].children;
 
       for (let j = 0; j < request.message.length; j++) {
-        let staffData = StaffsOnMirteList.children[i].children;
         if (request.message[j].name.replace(' ', '') == staffData[0].innerHTML.replace(' ', '')) {
           excelDaySize = request.message[j].datas.length;
           // データが入っている列のみ抽出して、名前と院名を除く
@@ -64,10 +64,9 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
               staffData[k + 2].children[0].options[1].selected = true;
             }
           }
+          // これ以降人物は一致しない
+          break;
         }
-
-        // これ以降人物は一致しない
-        break;
       }
 
       if (noData) {
@@ -75,6 +74,7 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
         let daySize = Math.min(excelDaySize, mirteDaySize);
         let absence = false;
 
+        //欠勤リストに名前があるか判定
         for (let l = 0; l < absenceList.length; l++) {
           if (staffData[0].innerHTML.replace(' ', '') == absenceList[l].replace(' ', '')) {
             absence = true;
@@ -83,6 +83,7 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
         }
 
         if (absence) {
+          //全て欠席入力
           for (let k = 0; k < daySize; k++) {
             staffData[k + 2].children[0].options[1].selected = true;
           }

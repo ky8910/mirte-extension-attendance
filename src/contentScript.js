@@ -58,7 +58,6 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
               staffData[k + 2].children[0].options[1].selected = true;
             }
           }
-          
           // これ以降人物は一致しない
           break;
         }
@@ -69,6 +68,7 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
         let daySize = Math.min(excelDaySize, mirteDaySize);
         let absence = false;
 
+        //欠勤リストに名前があるか判定
         for (let l = 0; l < absenceList.length; l++) {
           if (staffData[0].innerHTML.replace(' ', '') == absenceList[l].replace(' ', '')) {
             absence = true;
@@ -77,6 +77,7 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
         }
 
         if (absence) {
+          //全て欠席入力
           for (let k = 0; k < daySize; k++) {
             staffData[k + 2].children[0].options[1].selected = true;
           }
