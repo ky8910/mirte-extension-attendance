@@ -22,6 +22,8 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     let cannotFindOnMirteList = [];
     let actuallyAbsenceList = [];
     let StaffsOnMirteList = document.getElementsByClassName("table-responsive")[0].children[1];
+    let excelDaySize;
+    let mirteDaySize;
 
     //request.messageには、popup.jsから送信されたdatalist[]が送られてくる。
     for (let i = 0; i < StaffsOnMirteList.children.length; i += 2) {
@@ -30,9 +32,9 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
       for (let j = 0; j < request.message.length; j++) {
         let staffData = StaffsOnMirteList.children[i].children;
         if (request.message[j].name.replace(' ', '') == staffData[0].innerHTML.replace(' ', '')) {
-          let excelDaySize = request.message[j].datas.length;
+          excelDaySize = request.message[j].datas.length;
           // データが入っている列のみ抽出して、名前と院名を除く
-          let mirteDaySize = Array.prototype.slice.call(staffData).filter(function (value) {
+          mirteDaySize = Array.prototype.slice.call(staffData).filter(function (value) {
             return value.innerHTML != "" && value.innerHTML != " " && value.innerHTML != "&nbsp;"
           }).length - 2;
 
@@ -63,11 +65,6 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
       }
 
       if (noData) {
-        let excelDaySize = request.message[j].datas.length;
-        // データが入っている列のみ抽出して、名前と院名を除く
-        let mirteDaySize = Array.prototype.slice.call(staffData).filter(function (value) {
-          return value.innerHTML != "" && value.innerHTML != " " && value.innerHTML != "&nbsp;"
-        }).length - 2;
         // エクセル側かミルテ側のどちらか日数の小さい方まで取り込む
         let daySize = Math.min(excelDaySize, mirteDaySize);
         let absence = false;
