@@ -32177,7 +32177,7 @@ async function handleFileAsync(e) {
   const workbook = xlsx__WEBPACK_IMPORTED_MODULE_2__.read(data);
 
   //勤怠情報ページの日付に対応したシートを読み込んでいる
-  let targetSheetName = "R" + String(Number(YM.slice(0,4)) - 2018) + "." + String(Number(YM.slice(-2))+2) + "月";
+  let targetSheetName = "R" + String(Number(YM.slice(0,4)) - 2018) + "." + String(Number(YM.slice(-2))) + "月";
 
   const worksheet = workbook.Sheets[targetSheetName];
   document.getElementById("worksheet-name").innerHTML = targetSheetName;

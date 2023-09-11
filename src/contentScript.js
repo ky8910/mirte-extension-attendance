@@ -80,6 +80,7 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
             }
             actuallyAbsenceList.push(staffData[0].innerHTML.replace(' ', ''));
           }
+          break finded;
         }
       }
 
