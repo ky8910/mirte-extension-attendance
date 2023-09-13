@@ -13,7 +13,7 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   if (request.message == "get YM") {
     let wndlct = window.location;
     let url = wndlct.host + wndlct.port + wndlct.pathname;
-    if (url !== "dev.mirte.jp/attendance/edit" && url !== "mirte.jp/attendance/edit") {
+    if (url !== "dev.mirte.jp/attendance/edit" && url !== "mirte.jp/attendance/edit" && url !== "dev.mirte.jp/attendance/edit/update" && url !== "mirte.jp/attendance/edit/update") {
       sendResponse("no mirte");
     } else {
       let YM = document.getElementsByName("txtYM")[0].value;
@@ -55,13 +55,16 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
             //〇＝出勤、✕＝休み
             if (dataList[k] == "〇") {
               staffData[k + 2].children[0].options[0].selected = true;
+              staffData[k + 2].children[0].style.backgroundColor = "pink";
             }
             else if (dataList[k] == "✕") {
               staffData[k + 2].children[0].options[1].selected = true;
+              staffData[k + 2].children[0].style.backgroundColor = "silver";
             }
             else {
               //暫定的に、〇、✕以外は”休”で反映させて対処している。
               staffData[k + 2].children[0].options[1].selected = true;
+              staffData[k + 2].children[0].style.backgroundColor = "silver";
             }
           }
           // これ以降人物は一致しない
@@ -86,6 +89,7 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
           //全て欠席入力
           for (let k = 0; k < daySize; k++) {
             staffData[k + 2].children[0].options[1].selected = true;
+            staffData[k + 2].children[0].style.backgroundColor = "silver";
           }
           actuallyAbsenceList.push(staffData[0].innerHTML.replace(' ', ''));
         } else {
