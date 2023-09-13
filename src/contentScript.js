@@ -7,7 +7,7 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   if (request.message == "get YM") {
     let wndlct = window.location;
     let url = wndlct.host + wndlct.port + wndlct.pathname;
-    if (url !== "dev.mirte.jp/attendance/edit" && url !== "mirte.jp/attendance/edit") {
+    if (url !== "dev.mirte.jp/attendance/edit" && url !== "mirte.jp/attendance/edit" && url !== "dev.mirte.jp/attendance/edit/update" && url !== "mirte.jp/attendance/edit/update") {
       sendResponse("no mirte");
     } else {
       let YM = document.getElementsByName("txtYM")[0].value;
