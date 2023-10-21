@@ -1,6 +1,6 @@
 'use strict';
 
-const absenceList = ["廣川創太", "黒田賢人","税理士"];
+const absenceList = ["廣川創太", "黒田賢人", "税理士"];
 
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
 
