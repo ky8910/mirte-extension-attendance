@@ -83,14 +83,14 @@ async function handleFileAsync(e) {
   let version = worksheet[XLSX.utils.encode_cell({c:0, r:0})];
 
   // セルA1にバージョン指定がなければ失敗
-  if (!version || version.v !== "ver1.3") {
+  if (!version || version.v !== "ver1.4") {
     msg = "version failed";
     return;
   }
 
   //xlsxの上から4行目から読み込みを始める。現時点では有効な勤怠データの入っている行（最下行から20番目の行）までに範囲指定している。
   for (let curr = 3; curr <= XLSX.utils.decode_range(worksheet['!ref']).e.r - 1; curr++){
-    if (worksheet[XLSX.utils.encode_cell({c:4, r:curr})] == undefined) {
+    if (worksheet[XLSX.utils.encode_cell({c:5, r:curr})] == undefined) {
       break;
     }
 
@@ -100,14 +100,14 @@ async function handleFileAsync(e) {
     let rowdatas = [];
 
     //横長タイプ（H31.3月）の出勤表の勤怠データ5列目〜34列目のデータを収集している
-    for(let curc = 5; curc <= XLSX.utils.decode_range(worksheet['!ref']).e.c; curc++){
+    for(let curc = 6; curc <= XLSX.utils.decode_range(worksheet['!ref']).e.c; curc++){
       if (worksheet[XLSX.utils.encode_cell({c:curc, r:curr})] == undefined) {
         break;
       }
       rowdatas.push(worksheet[XLSX.utils.encode_cell({c:curc, r:curr})].v);
     }
     //取得した行のスタッフ名
-    rowlist.name = worksheet[XLSX.utils.encode_cell({c:4, r:curr})].v;
+    rowlist.name = worksheet[XLSX.utils.encode_cell({c:5 , r:curr})].v;
     //取得した行の勤怠情報
     rowlist.datas = rowdatas;
     //連想配列をリストに追加
